@@ -2,8 +2,8 @@ import { useState, useRef, useEffect } from 'react';
 import './App.css';
 
 function App() {
-  const [input, setInput] = useState<string>("");
-  const [debouncedInput, setDebouncedInput] = useState<string>("");
+  const [input, setInput] = useState<string>('');
+  const [debouncedInput, setDebouncedInput] = useState<string>('');
   const timeOutRef = useRef<number | null>(null);
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -18,21 +18,22 @@ function App() {
   }
 
   useEffect(() => {
-    return (() => {
+    return () => {
       if (timeOutRef.current) {
         clearTimeout(timeOutRef.current);
       }
-    })
+    };
   }, []);
 
   return (
     <>
       <div className="card">
-        <span>Input with instant feedback: </span>
-        <input value={input} onChange={handleInputChange}/>
-        <p>
-          Here is a debonced input with 2 seconds: {debouncedInput}
-        </p>
+        <div>
+          <span>Input with instant feedback: </span>
+          <input value={input} onChange={handleInputChange} />
+        </div>
+
+        <p>Here is a debonced input with 2 seconds: {debouncedInput}</p>
       </div>
     </>
   );
